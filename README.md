@@ -1,6 +1,6 @@
 # kafka-fda-pipeline
 
-Produce and Consume Messages using [openFDA API](https://open.fda.gov/apis/)
+Testing a proof of concept pipeline to produce and consume messages using [openFDA API](https://open.fda.gov/apis/).
 
 # Overview
 
@@ -67,7 +67,13 @@ java -version
 cd kafka_2.12-3.3.1
 ```
 
+---
+**Note: This is a demo POC. In real world use, it is best practice to separate zookeeper, producer and consumer into separate clusters.**
+
+---
+
 #### 10. Start Zoo-keeper server
+
 ```
 bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
@@ -88,7 +94,7 @@ bin/kafka-server-start.sh config/server.properties
 ```
 
 Note: This is pointing to private server, we need to change server.properties so that it can run on a public IP. 
-You cannot access your private DNS from your local computer unless you're on the same network.
+You cannot access your AWS instance by EC2 hostname / private IP DNS name from outside the AWS VPC.
 
 #### 14. Modify server.properties
 ```
@@ -111,6 +117,7 @@ bin/kafka-topics.sh --create --topic demo_test --bootstrap-server {Put the Publi
 ```
 
 #### 17. Start Producer
+
 ```
 bin/kafka-console-producer.sh --topic demo_test --bootstrap-server {Put the Public IP of your EC2 Instance:9092} 
 ```
@@ -125,4 +132,7 @@ cd kafka_2.12-3.3.1
 bin/kafka-console-consumer.sh --topic demo_test --bootstrap-server {Put the Public IP of your EC2 Instance:9092}
 ```
 
+
+
 #### 19. Run notebook files (KafkaConsumerFDA.ipynb and KafkaProducerFDA.ipynb) on your local machine.
+
